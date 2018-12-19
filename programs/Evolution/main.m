@@ -17,29 +17,45 @@
 clear
 clc
 
-maxPopulationLenght = 20; % How big population of creatures we can have
+maxPopulationLength = 20; % How big population of creatures we can have
+yearMax = 1000;
 
 %=================================
 % Create new population
 %=================================
 
-for i = 1:maxPopulationLenght
+for i = 1:maxPopulationLength
   [Points{i},Lines{i}] = CreateRandomCreature(10,10);
 end
+figure(1);
+DisplayPopulation(Points,Lines); % Display entire population of creature
 
+%=================================
+% Init statistics
+%=================================
 
+PopulationLengthList = zeros(yearMax,1);
+maxScoreList = zeros(yearMax,1);
+minScoreList = zeros(yearMax,1);
+maxPointsLengthList = zeros(yearMax,1);
+maxLinesLengthList = zeros(yearMax,1);
+minPointsLengthList = zeros(yearMax,1);
+minLinesLengthList = zeros(yearMax,1);
 %=================================
 % Start counting years
 %=================================
-for year = 1:30
+for year = 1:yearMax
   
   PopulationLenght = length(Points); % Get the size of current population
   
-  title = sprintf('Year: %03d\n Population: %03d',year,PopulationLenght);
+  PointsLengthVec = cellfun('length',Points);
+  LinesLengthVec = cellfun('length',Lines);
+  
+  title = sprintf('Year: %03d\n Population: %03d\n Genomsize: %d/%d\n',year,PopulationLenght,max(PointsLengthVec),max(LinesLengthVec));
   disp(title);
   
-  DisplayPopulation(Points,Lines); % Display entire population of creature
-
+  %DisplayPopulation(Points,Lines); % Display entire population of creature
+  
   %=================================
   % Evaluate the population
   %=================================
@@ -52,6 +68,17 @@ for year = 1:30
 
   disp(score);
 
+  PopulationLengthList(year) = PopulationLenght; %Get statistics
+  maxScoreList(year) = max(score);
+  minScoreList(year) = min(score);
+  PointsLengthVec = cellfun('length',Points);
+  LinesLengthVec = cellfun('length',Lines);
+  maxPointsLengthList(year) = max(PointsLengthVec);
+  minPointsLengthList(year) = min(PointsLengthVec);
+  maxLinesLengthList(year) = max(LinesLengthVec);
+  minLinesLengthList(year) = min(LinesLengthVec);
+  
+  
   %=================================
   % The winnter is comming ... 
   %=================================
@@ -77,7 +104,7 @@ for year = 1:30
   
   %while childIndex > maxPopulationLenght
   
-  numberOfChildren = ceil((maxPopulationLenght- NumberOfCreaturesSurvives)/NumberOfCreaturesSurvives); % Calculated how many childer each pair will have
+  numberOfChildren = ceil((maxPopulationLength- NumberOfCreaturesSurvives)/NumberOfCreaturesSurvives); % Calculated how many childer each pair will have
   
   for parentIndex =1:2:NumberOfCreaturesSurvives
     motherIndex = parentIndex+0;
@@ -85,6 +112,8 @@ for year = 1:30
     
     for a = 1:numberOfChildren
       [ChildPoints,ChildLines] = CreateCreatureFromParent(Points{motherIndex},Lines{motherIndex},Points{fatherIndex},Lines{fatherIndex});
+      
+      [ChildPoints,ChildLines] = IntroduceRandomModifications(ChildPoints,ChildLines,0.5);
     
       if CheckCreatureSurvivesBirth(ChildPoints,ChildLines)==1 % Check whether child will survives its births
         Points{childIndex} = ChildPoints;
@@ -95,3 +124,14 @@ for year = 1:30
   end
 
 end
+
+figure(2);
+DisplayPopulation(Points,Lines); % Display entire population of creature
+figure(3);
+plot(PopulationLengthList);
+figure(4);
+semilogy(1:yearMax,maxScoreList,'r',1:yearMax,minScoreList,'b')
+figure(5);
+plot(1:yearMax,maxPointsLengthList,'r',1:yearMax,minPointsLengthList,'b')
+figure(6);
+plot(1:yearMax,maxLinesLengthList,'r',1:yearMax,minLinesLengthList,'b')

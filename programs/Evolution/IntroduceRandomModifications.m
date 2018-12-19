@@ -14,15 +14,13 @@
 %                                         %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function DisplayPopulation(Points,Lines)
-  PopulationLength = length(Points); % Get how many creatures we have
+function [NewChildPoints,NewChildLines] = IntroduceRandomModifications(ChildPoints,ChildLines,probability)
+  NewChildPoints = ChildPoints;
+  NewChildLines = ChildLines;
   
-  SubPlotWidth = ceil(sqrt(PopulationLength));
-
-  clf
-  for i= 1:PopulationLength
-    subplot(SubPlotWidth,SubPlotWidth,i);
-    DisplayCreature(Points{i},Lines{i});
+  PointsLength = size(NewChildPoints,1);
+  while rand(1,1)<probability
+    pointIndex = randi([1,PointsLength],1,1);
+    NewChildPoints(pointIndex,:) = NewChildPoints(pointIndex,:) + randn(1,2);
   end
-  
 end

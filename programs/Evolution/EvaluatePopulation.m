@@ -19,7 +19,9 @@ function [score] = EvaluatePopulation(Points,Lines)
   
   score = zeros(PopulationLength,1); % Create vector of scores
   for i = 1:PopulationLength
-    score(i) = EvaluateCreature(Points{i},Lines{i}); % Evaluate each creature and store the its score
+    %score(i) = EvaluateCreature(Points{i},Lines{i}); % Evaluate each creature and store the its score
+    %score(i) = EvaluateRoundnessCreature(Points{i},Lines{i}); % Evaluate each creature and store the its score
+    score(i) = EvaluateAverageDistanceCreature(Points{i},Lines{i}); % Evaluate each creature and store the its score
   end
   
 end
