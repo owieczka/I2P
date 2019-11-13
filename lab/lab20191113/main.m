@@ -3,7 +3,7 @@ flowerImg = double(imread('flower.png'))/255;
 sunImg = double(imread('sun.png'))/255;
 cloudImg = double(imread('cloud.png'))/255;
 
-raindrop = double(imread('raindrop.png'))/255;
+raindropImg = double(imread('raindrop.png'))/255;
 
 %imagesc(flowerImg);
 
@@ -12,11 +12,11 @@ blankImage = ones(100,100,3); %Create an empty image
 
 myImage = blankImage;
 myImage(1:16,1:16,1:3) = sunImg; %Copy the sun
-myImage(67:67+16-1,3:3+16-1,1:3)=cloudImg; %Insert first cloud
-myImage(37:37+16-1,13:13+16-1,1:3)=cloudImg; %Insert second cloud
+myImage(3:3+16-1,67:67+16-1,1:3)=cloudImg; %Insert first cloud
+myImage(13:13+16-1,37:37+16-1,1:3)=cloudImg; %Insert second cloud
 myImage(80:80+16-1,80:80+16-1,1:3)=flowerImg; %Inset flowers
-myImage(20:20+16-1,80:80+16-1,1:3)=flowerImg;
-myImage(40:40+16-1,80:80+16-1,1:3)=flowerImg;
+myImage(80:80+16-1,20:20+16-1,1:3)=flowerImg;
+myImage(80:80+16-1,40:40+16-1,1:3)=flowerImg;
 figure(1); %Open first graphical window
 imagesc(myImage); %and show created image
 
