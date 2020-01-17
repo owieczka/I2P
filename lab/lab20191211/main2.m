@@ -17,3 +17,10 @@ BeginDrawing(-10, 10, -10, 10, 2)
 DrawCarpet(sx,sy,ex,ey,2);
 %End Drawing
 EndDrawing();
+
+%Initialize drawing
+BeginDrawing(-10, 10, -10, 10, 3)
+%Make drawing
+DrawCarpet2(sx,sy,ex,ey,2);
+%End Drawing
+EndDrawing();

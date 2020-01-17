@@ -1,8 +1,8 @@
 %Draw a showflake segment
-sx = 0;
-sy = 0;
+sx = -9;
+sy = -9;
 angle = pi/4;
-l = 5;
+l = 18*sqrt(2);
 
 %Initialize drawing
 BeginDrawing(-10, 10, -10, 10, 1)
@@ -15,6 +15,6 @@ EndDrawing();
 %Initialize drawing
 BeginDrawing(-10, 10, -10, 10, 2)
 %Make drawing
-DrawSnowFlake(sx,sy,l,angle,3);
+DrawSnowFlake(sx,sy,l,angle,6);
 %End Drawing
 EndDrawing();
